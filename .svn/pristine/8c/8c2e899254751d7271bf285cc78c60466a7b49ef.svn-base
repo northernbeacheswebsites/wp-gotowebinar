@@ -1,0 +1,142 @@
+<div class="postbox">
+                        <div class="handlediv" title="Click to toggle">
+                            <br>
+                        </div>
+                        <!-- Toggle -->
+                        <h2 class="hndle"><span><?php esc_attr_e( 'Help and Instructions', 'wp_admin_style' ); ?></span>
+						</h2>
+                        <div class="inside">
+                            <div id="accordion">
+                                <h3>How do I get my GoToWebinar Authorization and Organizer Key?</h3>
+                                <div>
+                                    Please click the "Click here to get Auth and Key" button next to the Authorization field. On the Citrix dialog box that appears please press Allow; if you're not signed in you will be prompted to sign in first. You will then be redirected to this settings page where you can then save the settings.
+                                </div>
+                                <h3>The GoToWebinar Authorization and Organizer Key button above isn't working?</h3>
+                                <div>
+                                    Please ensure you are using a javascript enabled browser. Most browsers these days enable javascript, however to double check this please visit <a target="_blank" href="https://www.whatismybrowser.com/detect/is-javascript-enabled">this page</a>. It's also important that before you click on the "Click here to get Auth and Key" button above that the "Authorization" and "Organizer Key" fields are blank. If they aren't blank please remove any existing text, save the settings, and then click the button.
+                                </div>
+                                <h3>How do I add GoToWebinars to my page or post?</h3>
+                                <div>
+                                    Just use this shortcode: <code>[gotowebinar]</code>. This shortcode will display all of your upcoming GoToWebinars. However you can put options into the shortcode like: <code>[gotowebinar include="" exclude="" hide="" timezone="" days=""]</code>. Just place a word or phrase in the include option to only show webinars that contain that word or phrase in the webinars title - the same goes for the exclude option. So to show all webinars that have a title that contains <strong>Training</strong> but excludes webinars that have the word <strong>Introduction</strong> you would use this shortcode: <code>[gotowebinar include="Training" exclude="Introduction"]</code>. Please note that what you type in these filters is case sensitive. You can also use the <strong>hide=""</strong> parameter to hide words/phrases from the title of the webinar. This can be a handy feature if you want to want to hide the <strong>include</strong> word or phrase from actually showing in the table. Using the <strong>days=""</strong> parameter you can get webinars from a certain amount of days in the future. For example <code>[gotowebinar days="10"]</code> will only show webinars that are coming up in the next 10 days. This can be handy if you have a large volume of webinars. You can also show webinars that are from a particular timezone, this can be handy if you have an American website but you only want to show webinars from your American office in New York. This can be done using <code>[gotowebinar timezone="America/New_York"]</code>. A list of these timezone filters can be found below:
+                                    <ul id="quad">
+                                        <?php foreach($time_zone_list as $key => $value) {    
+    echo '<li>'.$key.'</li>';
+}
+?>
+                                    </ul>
+                                </div>
+                                <h3>How to use the Register Webinar shortcode to display a registration form for a single webinar?</h3>
+                                <div>
+                                    <ol>
+                                        <li>Navigate to the post or page you would like to add the webinars to</li>
+                                        <li>Enter in the shortcode <code>[gotowebinar-reg key="YOUR WEBINAR KEY"]</code></li>
+                                        <li>You can also add a hide parameter to the shortcode to hide parts of the title showing like: <code>[gotowebinar key="YOUR WEBINAR KEY" hide="Training"]</code></li>
+                                    </ol>
+                                    <p>You might now be asking how do I get my webinar key? You can get this from the GoToWebinar website: <a target="_blank" href="https://global.gotowebinar.com/webinars.tmpl">https://global.gotowebinar.com/webinars.tmpl</a> (it's the number at the end of your webinars URL). If you have already authenticated above you can use the quick table below to get your webinars key:</p>
+
+                                    <table id="gotowebinar_key_display_table" style="width:100%; table-layout: fixed; margin-top: 10px;">
+                                        <tr>
+                                            <th style="text-align: left;">Webinar Title</th>
+                                            <th style="text-align: left;">Webinar Date</th>
+                                            <th style="text-align: left;">Webinar Key</th>
+                                        </tr>
+                                        <?php   
+   foreach ($jsondata as $data) {
+    echo '<tr><td>'; 
+       
+    if(isset($data['subject'])){   
+       
+    echo $data['subject'];   
+    }
+    echo '</td>';
+       
+    if(isset($data['times'])){   
+       
+    foreach($data['times'] as $mytimes) {
+    echo '<td>';
+    $date = new DateTime($mytimes['startTime']); 
+    echo $date->format($options['gotowebinar_date_format']);    
+    echo '</td>';    
+    }
+   }
+    echo '<td><strong style="color:#CC0000">';
+       
+    if(isset($data['webinarKey'])){
+       
+    echo $data['webinarKey'];
+    }
+       
+    echo '<strong></td></tr>';  
+   }
+    ?>
+                                    </table>
+                                </div>
+                                <h3>How do I change the fields on my registration form?</h3>
+                                <div>The registratiom form fields shown by WP GoToWebinar mirrors the registration form fields you setup when creating the webinar on the GoToWebinar website. So you can include fields, make them required or not, or even add your own questions by going to the GoToWebinar website. Just remember if you make changes to your questions to clear the cache by pressing the "Clear Webinar Cache" button above. The cache is cleared automatically every 24 hours or when the next day starts but you may want to see the changes immediately so that's why we included the button!
+                                </div>
+                                <h3>How do I enable users to signup on a form on my website</h3>
+                                <div>
+                                    <ol>
+                                        <li>Add the shortcode <code>[gotowebinar-reg]</code> on your newly created or existing registration page</li>
+                                        <li>On this settings page select your registration page from the Custom Registration Page dropdown setting</li>
+                                        <li>That's it! Now when people click register from the Upcoming Webinars Shortcode or Widget instead of going to the GoToWebinar website they are taken to your registration page</li>
+                                    </ol>
+                                </div>
+                                <h3>How do I add the GoToWebinars widget?</h3>
+                                <div>
+                                    You will find the GoToWebinars widget on your <a href="widgets.php">widget page</a>. You can add multiple widgets with different filter criteria as well as setting a maximum number of webinars to display.
+                                </div>
+                                <h3>How do I add upcoming webinars or a registration form using Visual Composer?</h3>
+                                <div>
+                                    <ol>
+                                        <li>Firstly if you don't have Visual Composer yet you can purchase it from <a target="_blank" href="http://codecanyon.net/item/visual-composer-page-builder-for-wordpress/242431">here.</a></li>
+                                        <li>Go to your page or post and click on the Backend Editor button if you aren't in the Visual Composer mode yet.</li>
+                                        <li>Under "Content" you will find WP GoToWebinar content elements, some of which contain additional settings.</li>
+                                    </ol>
+                                </div>
+
+
+                                <h3>Can I add multiple keywords separated by commas in the widget or shortcode?</h3>
+                                <div>
+                                    At this point of time unfortunately you can't do something like: <code>[gotowebinar include="Training, Introduction, New Features"]</code>. Doing this will only include webinars that contain the full phrase <strong>"Training, Introduction, New Features"</strong>. Of course you can use the <strong>include</strong> and <strong>exclude</strong> parameters together.
+                                </div>
+
+                                <h3>I added a new webinar or changed the fields of an existing webinar but the changes aren't showing?</h3>
+                                <div>So that you don't make too many API calls to GoToWebinar so they don't shut you off from the API and to make your upcoming webinars and registration forms load super fast we have implemented caching. The caching will store your GoToWebinar data for 24 hours or when the next day starts. So if you have added a new webinar or you have changed the registration fields of a webinar this is why your changes aren't showing. It is generally recommended to keep the cache on, but you can turn it off checking the checkbox in the above settings "Turn Caching Off". Or you can keep the cache on and just press the "Clear Webinar Cache" button above.
+                                </div>
+                                
+                                
+                                
+                                <h3>How can I change the translation of the table headings and other elements?</h3>
+                                <div><p>WP GoToWebinar has already made headings, hours/minutes and the days of the week translatable. I have already completed the following translations: Arabic, German, Spanish, French, Italian, Chinese Tradition and Simplified and Hindi. So the WP GoToWebinar plugin will output the appropriate language  based on your main Wordpress language setting. If I have made an error in these translations please advise and I will update the plugin.</p>
+                                    
+                                <p>If there's no translation for your language please use the <a target="_blank" href="https://poedit.net/">Poedit</a> program which is free to create a translation in your language and share it with me and I will put it in the next release. You need to place your .mo and .po file in the <code>inc/lang</code> folder.</p>
+                                    
+                                <p>Of course you can change the registration form field labels by using the settings above.</p> 
+                                </div>
+
+                                <h3>Somethings not working or I would like to customise something?</h3>
+                                <div>
+                                    Please use the "Bugs, Improvements or Customisations" dialog box on this page to send me an email and I will see what I can do. I do provide custom Wordpress solutions whether it be for themes or plugins so I would love to assist you with your project.
+                                </div>
+                                <h3>What features do you have planned for this plugin?</h3>
+                                <div>
+                                    <ol>
+
+                                        <li>I would like to add a new plugin or extend this plugin to include support for GoToTraining. I would love your feedback if you think it's best to have one plugin or have 2 seperate ones.</li>
+
+                                        <li>I am also considering adding in some way to offer paid Webinars but this may come in a future paid version of the plugin. I don't know how many people offer paid GoToWebinars though.</li>
+                                    </ol>
+                                    Your donation and support with expedite new features.
+                                    <br></br>
+                                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                        <input type="hidden" name="cmd" value="_s-xclick">
+                                        <input type="hidden" name="hosted_button_id" value="VGVE97KF74FVN">
+                                        <input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+                                        <img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .inside -->
+                    </div>

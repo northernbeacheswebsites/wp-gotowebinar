@@ -1,0 +1,46 @@
+<?php
+
+//Ajax call to clear the cache
+function wp_gotowebinar_clear_cache_javascript() { ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#gotowebinar_clear_cache').click(function (event) {
+                event.preventDefault();
+                $('.notice-success').remove();
+                var data = {
+                    'action': 'clear_cache',
+                };
+                jQuery.post(ajaxurl, data, function (response) {
+                    $('<div class="notice notice-success"><p>The cache was cleared successfully.</p></div>').insertAfter('#gotowebinar_clear_cache');
+                });
+            });
+        });
+    </script>
+    <?php
+}
+add_action( 'admin_footer', 'wp_gotowebinar_clear_cache_javascript' ); 
+
+
+//Function to run upon ajax request
+function wp_gotowebinar_clear_cache_callback() {
+	global $wpdb; 
+    $sql = "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_gtw%' or option_name like '_transient_timeout_gtw%'";
+    $wpdb->query($sql);
+    	wp_die();     
+}
+add_action( 'wp_ajax_clear_cache', 'wp_gotowebinar_clear_cache_callback' );
+
+
+//function that runs on deactivation
+function wp_gotowebinar_clear_cache_deactivation() {
+    if ( ! current_user_can( 'activate_plugins' ) )
+        return;
+    $plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
+    check_admin_referer( "deactivate-plugin_{$plugin}" );
+    global $wpdb; 
+    $sql = "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_gtw%' or option_name like '_transient_timeout_gtw%'";
+    $wpdb->query($sql);
+}
+register_deactivation_hook( __FILE__, 'wp_gotowebinar_clear_cache_deactivation' );
+
+?>

@@ -1,0 +1,29 @@
+#quad {
+  width:100%;
+  overflow:hidden;
+  list-style: disc;
+}
+#quad li {
+  width: 15.2%; 
+  display:list-item;
+  float:left;
+  margin-left: 20px;
+}
+.ui-accordion-content {
+    height: auto !important;
+}
+input#gotowebinar_authorization {
+    margin-right: 10px;
+}
+.form-table {
+    table-layout: fixed;
+}
+#gotowebinar_settings_form tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+#gotowebinar_key_display_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.gotowebinar_append_buttons {
+    margin-top: 5px !important;
+}

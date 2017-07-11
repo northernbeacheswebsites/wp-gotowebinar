@@ -1,0 +1,392 @@
+jQuery(document).ready(function ($) {
+
+    //when clear cache button is clicked clear the cache by running a function
+     $('#gotowebinar_clear_cache').click(function (event) {
+        event.preventDefault();
+        var data = {
+            'action': 'clear_cache',
+        };
+        jQuery.post(ajaxurl, data, function (response) {
+            $('<div class="notice notice-success"><p>The cache was cleared successfully.</p></div>').insertAfter('#gotowebinar_clear_cache');
+        });
+    });
+    
+    
+    //hides colours options when disable tooltip is checked
+    if ($('#gotowebinar_disable_tooltip').is(':checked')) {
+        $(".tooltipcolors").hide();
+    } else {
+        $(".tooltipcolors").show();
+    }
+    $('#gotowebinar_disable_tooltip').click(function () {
+        if ($(this).is(':checked')) {
+            $(".tooltipcolors").hide();
+        } else {
+            $(".tooltipcolors").show();
+        }
+    });
+
+
+    
+    
+        //shows mailchimp/constantcontact options when MailChimp/Constant Contact is selected
+    $('#gotowebinar_email_service :selected').each(function () {
+        if ($(this).val() == "mailchimp") {
+            $(".mailchimp").show();
+        } else {
+            $(".mailchimp").hide();
+        }
+        if ($(this).val() == "constantcontact") {
+            $(".constantcontact").show();
+        } else {
+            $(".constantcontact").hide();
+        }
+        if ($(this).val() == "constantcontact" || $(this).val() == "mailchimp") {
+            $(".emailservices").show();
+        } else {
+            $(".emailservices").hide();
+        }
+    });
+    $('#gotowebinar_email_service').change(function () {
+        if ($(this).val() == "mailchimp") {
+            $(".mailchimp").show();
+        } else {
+            $(".mailchimp").hide();
+        }
+        if ($(this).val() == "constantcontact") {
+            $(".constantcontact").show();
+        } else {
+            $(".constantcontact").hide();
+        }
+
+        if ($(this).val() == "constantcontact" || $(this).val() == "mailchimp") {
+            $(".emailservices").show();
+        } else {
+            $(".emailservices").hide();
+        }
+    });
+    
+    
+    
+    
+    
+    //hides button colours when registration page is on the default option i.e the GoToWebinar website registration page
+    if ($('#gotowebinar_custom_registration_page').val() == 'default') {
+        $(".buttoncolors").hide();
+    } else {
+        $(".buttoncolors").show();
+    }
+    $('#gotowebinar_custom_registration_page').change(function () {
+        if ($(this).val() == 'default') {
+            $(".buttoncolors").hide();
+        } else {
+            $(".buttoncolors").show();
+        }
+    });
+
+
+    //hides and then shows on click help tooltips
+    $(".hidden").hide();
+    $(".information-icon").click(function (event) {
+        event.preventDefault();
+        $(this).next(".hidden").slideToggle();
+    });
+
+    //instantiates the Wordpress colour picker
+    $('.my-color-field').wpColorPicker();
+
+
+
+    //get the current url of the page the user is on
+    var currentUrl = $(location).attr('href');
+    //encode the url so it can be sent as a query string
+    var currentUrlEncoded = encodeURIComponent(currentUrl);
+    //create a link for our button
+    var buttonLink = "https://api.citrixonline.com/oauth/authorize?client_id=mXgdAmzVs9lGVbECGrUT2ieZePoVmh4z&state=" + currentUrlEncoded;
+    //add the button after the authorization field and add the above link to it
+    $('<a class="button-secondary" href="' + buttonLink + '">Click here to get Auth and Key</a>').insertAfter('#gotowebinar_authorization');
+
+
+    if ($('#gotowebinar_authorization').val().length == 0) {
+        //this function can find a parameter in a query string
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        //create a variable that gets the code query string from the response from my server
+        var code = getParameterByName('code');
+        //sets the consumer key of my GoToWebinar app
+        var consumerKey = "mXgdAmzVs9lGVbECGrUT2ieZePoVmh4z";
+
+        //performs ajax request to Citrix server to get the users organizer key and access token utilising the key taken from the state query string above 
+        jQuery.ajax({
+                url: "https://api.citrixonline.com/oauth/access_token",
+                type: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "application/json",
+                },
+                contentType: "application/x-www-form-urlencoded",
+                data: {
+                    "client_id": consumerKey,
+                    "grant_type": "authorization_code",
+                    "code": code,
+                },
+            })
+            .done(function (data, textStatus, jqXHR) {
+                console.log("HTTP Request Succeeded: " + jqXHR.status);
+                var organizer_key = data.organizer_key;
+                var access_token = data.access_token;
+                $('#gotowebinar_authorization').val(access_token);
+                $('#gotowebinar_organizer_key').val(organizer_key);
+                $('<div class="notice notice-info is-dismissible"><p>Please press Save Settings to finish authentication.</p></div>').insertBefore('#save');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("HTTP Request Failed");
+
+            });
+    }
+
+    //turns the faq div at the bottom into an accordion
+    $("#accordion").accordion({
+        collapsible: true,
+        autoHeight: false,
+        heightStyle: "content",
+        speed: "slow"
+    });
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //add message when user is editing mailchimp api to save settings to then choose default list
+
+    $('#gotowebinar_mailchimp_api').on('input', function (event) {
+
+        $('.gotowebinar_mailchimp_api').remove();
+
+        $('<div class="notice notice-info is-dismissible gotowebinar_mailchimp_api"><p>Please press Save All Settings to choose a default MailChimp List.</p></div>').insertAfter('#gotowebinar_mailchimp_api');
+
+    });
+
+
+    //start variable declarations to do Constant Contact Authorization
+    
+    //get the current url and strip out any existing query strings, if the string doesn't contain any query strings then just use the existing current url
+    
+    if (currentUrl.indexOf("&") == -1) {
+      var currentUrlCleaned =  currentUrl;
+        
+    } else {
+        
+      var currentUrlCleaned = currentUrl.slice(0, (currentUrl.length - currentUrl.indexOf("&"))*-1);   
+    }
+    
+
+    
+    var redirectUri = encodeURIComponent('https://northernbeacheswebsites.com.au/redirectconstantcontact?redirect=' + currentUrlCleaned);
+
+    var myApi = "me68vunsy43cw654ydm2tucf";
+    //create a link for the button    
+    var constantContactLink = "https://oauth2.constantcontact.com/oauth2/oauth/siteowner/authorize?response_type=code&client_id=" + myApi + "&redirect_uri=" + redirectUri;
+
+    //add a button after constant contact field to authorize
+    $('<a id="accessToken" class="button-secondary" href="' + constantContactLink + '">Click here to get Token</a>').insertAfter('#gotowebinar_constantcontact_token');
+    
+
+    
+    //make requst to CC for access token
+        if ($('#gotowebinar_constantcontact_token').length == 0) {
+
+        //get query string paramter called codeCC
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        //create a variable that gets the code query string from the response from my server
+        var codeCC = getParameterByName('codeCC');
+        
+                    
+            var data = {
+            'action': 'constant_contact_token',
+            'codeCC': codeCC,
+            'redirectUri': redirectUri,  
+        };
+        jQuery.post(ajaxurl, data, function (response) {
+
+            $('#gotowebinar_constantcontact_token').val(response);
+            
+            
+            if($('#gotowebinar_constantcontact_token').length >0){
+            
+            $('<div class="notice notice-info is-dismissible"><p>Please press Save All Settings to choose a default Constant Contact List.</p></div>').insertAfter('#accessToken');
+            }
+                
+        });
+        } //end if
+    
+    
+    
+    
+    
+    
+    
+    
+    //adds button text to text area for success, error and already registered setting - used for translation options
+    
+    
+    $('.gotowebinar_append_buttons').click(function() { 
+    $(this).parent().next().children().val($(this).parent().next().children().val() + $(this).attr("value")); 
+    $(this).parent().next().children().focus();      
+    });
+    
+
+    
+    
+    //hide loading spinners
+    $('.create-gotowebinar-product').parent().find('i').hide();
+    $('.edit-gotowebinar-product').parent().find('i').hide();
+    
+    //creates product
+    $('.create-gotowebinar-product').click(function(event) { 
+       event.preventDefault();
+    
+    var webinarId = this.id;    
+    var webinarPrice = $(this).parent().prev().children().val();  
+        
+    console.log(webinarId);
+    console.log(webinarPrice);        
+    
+    if(webinarPrice.length <1 || $.isNumeric(webinarPrice) == false ){ 
+     console.log('You need to enter a price'); 
+    
+    $(this).parent().prev().children().effect("shake", { times:3 }, 300);    
+        
+    $(this).parent().prev().append('<p class="price-warning">Please enter a price like 50</p>');
+        
+    setTimeout(function() {
+    $('.price-warning').slideUp();
+    }, 3000);    
+        
+        
+    } else {
+           
+        
+        $('.spinner-'+webinarId).show();
+        
+        var data = {
+			'action': 'create_product',
+			'webinarPrice': webinarPrice,
+            'webinarId': webinarId,
+		};
+
+		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+		jQuery.post(ajaxurl, data, function(response) {
+            
+            $('.spinner-'+webinarId).hide();
+            
+            var createButtonFind = '.create-gotowebinar-product-'+webinarId;     
+            
+            
+            $(createButtonFind).after('<p class="product-created-message">Product created!</p>');
+            
+            setTimeout(function() {
+            $('.product-created-message').slideUp();
+            }, 3000);
+            
+            $(createButtonFind).after('<a class="button-secondary delete-gotowebinar-product" data='+webinarId+' id="'+response+'">Delete Product</a>');
+                        
+            $(createButtonFind).after('<a style="margin-right: 10px;" href="post.php?post='+response+'&amp;action=edit" class="button-secondary edit-gotowebinar-product">Edit Product</a>');
+            
+            $(createButtonFind).parent().prev().children().prop('readonly',true);
+            
+            
+            $(createButtonFind).remove();
+            
+            deleteWebinarProduct();
+
+            
+		});
+        
+        
+    }   
+        
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //deletes product
+    
+    function deleteWebinarProduct(){
+    
+    $('.delete-gotowebinar-product').click(function() { 
+      
+        var webinarId = $(this).attr('data'); 
+        var postId = this.id;  
+        
+        
+        var webinarTitle = $(this).parent().prev().prev().prev().text();
+        
+        var confirmationOfDelete = confirm('Are you sure you want to delete the webinar product: '+webinarTitle+'? Note: this won\'t delete the webinar from GoToWebinar it will just delete the WooCommerce product.');
+        
+        if (confirmationOfDelete == true) {
+            
+        $('.spinner-'+webinarId).show(); 
+            
+           var data = {
+			'action': 'delete_product',
+			'postId': postId,
+		};
+
+		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+		jQuery.post(ajaxurl, data, function(response) { 
+         
+            $('.spinner-'+webinarId).hide();
+        
+            
+             $('#row-'+webinarId).slideUp();
+            
+            
+
+            
+        });   
+            
+            
+        } //end if condition of confirmation dialog
+        
+    });
+    
+    } //end function
+    
+    deleteWebinarProduct(); //call function
+    
+    
+
+});

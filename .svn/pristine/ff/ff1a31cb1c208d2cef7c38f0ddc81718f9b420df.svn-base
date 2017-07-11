@@ -1,0 +1,157 @@
+#quad {
+  width:100%;
+  overflow:hidden;
+  list-style: disc;
+}
+#quad li {
+  width: 15.2%; 
+  display:list-item;
+  float:left;
+  margin-left: 20px;
+}
+input#gotowebinar_authorization {
+    margin-right: 10px;
+}
+.form-table {
+    table-layout: fixed;
+}
+#gotowebinar_settings_form tr:nth-child(even), #gotowebinar_key_display_table tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+ 
+#gotowebinar_settings_form td, #gotowebinar_key_display_table td {
+padding-left: 6px;
+padding-right: 6px;
+}
+
+#gotowebinar_key_display_table td {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+
+.gotowebinar_append_buttons {
+    margin-top: 5px !important;
+}
+
+
+
+
+@-webkit-keyframes webkit-animation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+
+@-moz-keyframes moz-animation {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(359deg);
+    }
+}
+
+@-o-keyframes o-animation {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(359deg);
+    }
+}
+
+@keyframes normal-animation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.fa-spinner {
+    -webkit-animation: webkit-animation 2s infinite linear;
+    -moz-animation: moz-animation 2s infinite linear;
+    -o-animation: o-animation 2s infinite linear;
+    animation: normal-animation 2s infinite linear;
+    font-size: 20px !important;
+    display: none;
+    margin-top: 9px;
+}
+
+.gotowebinar_create_webinar_single {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.gotowebinar_create_webinar_single i {
+    margin-left: 10px;  
+    cursor: pointer;
+    display: none;
+}
+
+.gotowebinar_create_webinar_sequence {
+    display: none;
+}
+
+
+.spinner-create-webinar {
+    margin-top: 0px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.registrant-info-heading {
+    display: none; 
+    background-color: #23282d !important;
+    color: white;
+}
+
+.registrant-info-heading th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.registrant-info-data:nth-child(even) {
+    background-color: #32373c !important;
+    color: white;
+}
+
+.registrant-info-data:nth-child(odd) {
+    background-color: #23282d !important;
+    color: white;
+}
+
+.tab-content, .tab-titles {
+    display: block;
+}
+
+.tab-titles {
+    display: table;
+    width: 100%;
+}
+
+.ui-tab {
+    margin-bottom: 0px;
+}
+
+.ui-tabs-active a, .ui-state-active a, .ui-state-focus a, .ui-state-hover a {
+    background: #23282d !important;
+    color: white !important;
+}
+
+.nav-tab {
+    margin-right: .5em;
+    margin-left: 0px;
+    margin-bottom: 7px;
+}
+
+.ui-accordion-content {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}

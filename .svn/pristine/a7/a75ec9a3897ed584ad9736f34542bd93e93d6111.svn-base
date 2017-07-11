@@ -1,0 +1,65 @@
+<?php 
+global $time_zone_list; 
+global $gotowebinar_is_pro;
+$options = get_option('gotowebinar_settings');
+$getTransient = get_transient('gtw_key');
+    if ($getTransient != false){
+        $jsondata = $getTransient; 
+    } else {
+    $json_feed = wp_remote_get( 'https://api.citrixonline.com/G2W/rest/organizers/'.$options['gotowebinar_organizer_key'].'/upcomingWebinars', array(
+        'headers' => array(
+        'Authorization' => $options['gotowebinar_authorization'],
+	),));
+    $jsondata = json_decode(preg_replace('/("\w+"):(\d+(\.\d+)?)/', '\\1:"\\2"', $json_feed['body']), true);
+    set_transient('gtw_key',$jsondata, 600);     
+    }
+?>
+    <div class="wrap">
+        
+        
+        <!-- pro ad -->
+        <a target="_blank" href="https://northernbeacheswebsites.com.au/wp-gotowebinar-pro/">
+            <div style="height:200px; width: 100%; background-color: #3fa5bf; margin-bottom: 20px;">
+                <div style="padding: 25px 20px 20px 20px; text-align: center;">
+                    <img style="max-width: 100%; height: auto;" src="<?php echo plugins_url( '/images/upgrade-notice.png', __FILE__ ); ?>">
+                </div>
+            </div>
+        </a>
+        
+        
+        <!-- start options -->
+        <div id="icon-options-general" class="icon32"></div>
+        <h1><?php esc_attr_e( 'WP GoToWebinar Options', 'wp_admin_style' ); ?></h1>
+        <div id="poststuff">
+            <div id="post-body" class="metabox-holder columns-2">
+                <!-- main content -->
+                <div id="post-body-content">
+                    <form name="gotowebinar_settings_form" id="gotowebinar_settings_form" method="post" action="">
+                        <input type="hidden" name="gotowebinar_settings_form_submitted" value="Y">
+                        
+                        <?php 
+                        require('options-page-main-settings.php'); 
+                        
+                        ?>
+                        
+                        <?php 
+                        if ($gotowebinar_is_pro == "YES"){ 
+                        // add visual composer functionality
+                        require('options-page-pro.php');
+                        } ?>
+                        
+                        <?php require('options-page-translation.php'); ?>
+                    </form>
+                    <?php 
+                    require('options-page-cache.php');
+                    require('options-page-help.php'); ?>
+                </div>
+                <?php require('options-page-sidebar.php'); ?>
+                    <!-- #postbox-container-1 .postbox-container -->
+            </div>
+            <!-- #post-body .metabox-holder .columns-2 -->
+            <br class="clear">
+        </div>
+        <!-- #poststuff -->
+    </div>
+    <!-- .wrap -->

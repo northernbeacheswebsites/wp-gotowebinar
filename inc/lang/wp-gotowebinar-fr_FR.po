@@ -1,0 +1,170 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP GoToWebinar\n"
+"POT-Creation-Date: 2016-07-02 12:16+1000\n"
+"PO-Revision-Date: 2016-07-02 12:16+1000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-WPHeader: wp-gotowebinar.php\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: inc/options-page-wrapper.php:31
+msgid "WP GoToWebinar Options"
+msgstr ""
+
+#: inc/options-page-wrapper.php:42
+msgid "Main Settings"
+msgstr ""
+
+#: inc/options-page-wrapper.php:224
+msgid "Clear Cache"
+msgstr ""
+
+#: inc/options-page-wrapper.php:248
+msgid "Help and Instructions"
+msgstr ""
+
+#: inc/options-page-wrapper.php:388
+msgid "Please Donate!"
+msgstr ""
+
+#: inc/options-page-wrapper.php:392
+msgid ""
+"Thank you for using my plugin. Your donation contributes to the development "
+"and support of this plugin. Any donation amount is much appreciated."
+msgstr ""
+
+#: inc/options-page-wrapper.php:412
+msgid "Bugs, Improvements or Customisations?"
+msgstr ""
+
+#: inc/shortcode-registration.php:63 inc/shortcode.php:110
+msgid "minutes"
+msgstr "minutes"
+
+#: inc/shortcode-registration.php:65 inc/shortcode.php:113
+msgid "hour"
+msgstr "heure"
+
+#: inc/shortcode-registration.php:68 inc/shortcode.php:118
+msgid "hours"
+msgstr "heures"
+
+#: inc/shortcode.php:39
+msgid "Title"
+msgstr "Titre"
+
+#: inc/shortcode.php:40
+msgid "Date"
+msgstr "date"
+
+#: inc/shortcode.php:41
+msgid "Start Time"
+msgstr "Heure de départ"
+
+#: inc/shortcode.php:42
+msgid "Duration"
+msgstr "Durée"
+
+#: inc/shortcode.php:43 inc/shortcode.php:126 inc/widget-output.php:66
+msgid "Register"
+msgstr "Registre"
+
+#: wp-gotowebinar.php:232
+msgid "WP GoToWebinar - Upcoming Webinars"
+msgstr ""
+
+#: wp-gotowebinar.php:236 wp-gotowebinar.php:298 wp-gotowebinar.php:359
+msgid "Content"
+msgstr ""
+
+#: wp-gotowebinar.php:241
+msgid ""
+"Include webinars that contain the following word or phrase in the title:"
+msgstr ""
+
+#: wp-gotowebinar.php:248
+msgid ""
+"Exclude webinars that contain the following word or phrase in the title:"
+msgstr ""
+
+#: wp-gotowebinar.php:255 wp-gotowebinar.php:372
+msgid "Hide the following word or phrase from the webinar title:"
+msgstr ""
+
+#: wp-gotowebinar.php:262
+msgid "Show webinars from the following amount of days:"
+msgstr ""
+
+#: wp-gotowebinar.php:265
+msgid "If left blank all upcoming webinars will be shown."
+msgstr ""
+
+#: wp-gotowebinar.php:270
+msgid "Show webinars from only this timezone:"
+msgstr ""
+
+#: wp-gotowebinar.php:274
+msgid "If left blank all timezones will be shown."
+msgstr ""
+
+#: wp-gotowebinar.php:285
+msgid "WP GoToWebinar - Registration"
+msgstr ""
+
+#: wp-gotowebinar.php:293
+msgid ""
+"This element has no settings. This element should be put on your "
+"registration page only. This shortcode is not for displaying the "
+"registration form of a single webinar. Please use the other Visual Composer "
+"element for this."
+msgstr ""
+
+#: wp-gotowebinar.php:295
+msgid "Default param value"
+msgstr ""
+
+#: wp-gotowebinar.php:355
+msgid "WP GoToWebinar - Single Registration Form"
+msgstr ""
+
+#: wp-gotowebinar.php:364
+msgid "The webinar key of the webinar you want to show a registration form of:"
+msgstr ""
+
+#: wp-gotowebinar.php:367
+msgid ""
+"You can get your webinar key from the GoToWebinar website. We have also "
+"included a quick reference below:"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP GoToWebinar"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://www.northernbeacheswebsites.com.au"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Show upcoming GoToWebinars on any post or page or in a widget and register "
+"users on your website."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Martin Gibson"
+msgstr ""

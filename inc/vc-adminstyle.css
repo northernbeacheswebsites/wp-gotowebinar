@@ -1,0 +1,8 @@
+.gotowebinar-icon {
+background-image: url(../inc/images/visual-composer-icon.png) !important;
+background-size: contain;    
+}
+
+#gotowebinar_key_display_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
