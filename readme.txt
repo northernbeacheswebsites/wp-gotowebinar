@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: gotowebinar, widget, shortcode, citrix, webinar registration, webinars, upcoming webinars, visual composer, mailchimp, constant contact
 Requires at least: 3.0.1
 Tested up to: 4.7.5
-Stable tag: 9.1
+Stable tag: 9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ Please see a full list of FAQ's on the plugin settings page for a comprehensive 
 
 
 == Changelog ==
+
+= 9.2 =
+* The plugin now shows an authentication status message on the plugin settings page. This can help users who have account issues.
 
 = 9.1 =
 * New video showcasing all the features of WP GoToWebinar
@@ -367,6 +370,9 @@ Please see a full list of FAQ's on the plugin settings page for a comprehensive 
 * Initial launch of the plugin
 
 == Upgrade Notice ==
+
+= 9.2 =
+* The plugin now shows an authentication status message on the plugin settings page. This can help users who have account issues.
 
 = 9.1 =
 * New video showcasing all the features of WP GoToWebinar

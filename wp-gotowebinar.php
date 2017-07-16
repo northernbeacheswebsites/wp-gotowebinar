@@ -3,7 +3,7 @@
 *		Plugin Name: WP GoToWebinar
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Show upcoming GoToWebinars on any post or page or in a widget and register users on your website. 
-*		Version: 9.1
+*		Version: 9.2
 *		Author: Martin Gibson
 *		Author URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-gotowebinar   
@@ -315,7 +315,19 @@ function wp_gotowebinar_upcoming_webinars($transientName, $transientDuration){
 } //end function
 
 
-
+//function to check authentication status
+function wp_gotowebinar_authentication_check(){
+    //get options
+    $options = get_option('gotowebinar_settings');
+        $json_feed = wp_remote_get( 'https://api.getgo.com/G2W/rest/organizers/'.$options['gotowebinar_organizer_key'].'/upcomingWebinars', array(
+        'headers' => array(
+        'Authorization' => $options['gotowebinar_authorization'],
+	    ),));
+        //store the data and response in a variable
+        $json_response = wp_remote_retrieve_response_code($json_feed);    
+        //return the data and response
+        return $json_response;
+} //end function
 
 
 // Add shortcode

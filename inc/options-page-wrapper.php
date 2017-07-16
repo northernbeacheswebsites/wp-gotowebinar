@@ -26,12 +26,10 @@ list($jsondata,$json_response) = wp_gotowebinar_upcoming_webinars('gtw_key', 600
             </div>
         </a>
         <?php } ?> 
+        
+        
+        
 
-    
-        
-    
-        
-        
         
         
     <!-- heading -->
@@ -42,8 +40,44 @@ list($jsondata,$json_response) = wp_gotowebinar_upcoming_webinars('gtw_key', 600
     <?php } ?>
 
     
-    <!-- welcome note -->    
+    <!-- authentication note -->    
+    <?php
+    if(strlen($options['gotowebinar_organizer_key'])>0 && strlen($options['gotowebinar_authorization'])>0) {
         
+        $authenticationStatusCode = wp_gotowebinar_authentication_check();
+        
+        if($authenticationStatusCode == 200) {
+            //plugin is authenticated message
+            ?>
+            <div class="notice notice-success gotowebinar-authentication-notice">
+                  <p>The connection to your GoToWebinar account is working :)</p> 
+            </div>    
+            <?php
+            
+        } else {
+            //plugin isn't authenticated
+            ?>
+            <div class="notice notice-error gotowebinar-authentication-notice">
+                
+                <table>
+                <tr>
+                <td><i style="margin-right: 10px; color: #dc3232; font-size: 64px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i></td>  
+                <td><p>The connection to your GoToWebinar account hasn't been successful. Even though the Authorization and Organizer Key have been successfully generated the API calls to your GoToWebinar account are failing. This means that the plugin won't work! This can be because of a few reasons, including you could be on a trial account, your GoToWebinar account has expired or you are using login details for another Citrix product like GoToMeeting. If this message is showing please contact Citrix first by clicking <a href="https://care.citrixonline.com/gotowebinar/contactus" target="_blank"><strong>here</strong></a> as I can't assist you with this particular issue. Thanks and I hope you get the account issue sorted out soon :)</p></td>    
+                </tr>
+                
+                </table>
+     
+            </div>    
+            <?php
+        }
+        
+        
+    }        
+        
+    ?>    
+        
+        
+    <!-- welcome note -->         
     <?php    
     if($options['gotowebinar_welcome_message'] != 1) {
     ?>
